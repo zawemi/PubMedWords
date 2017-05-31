@@ -1,0 +1,11 @@
+﻿--CREATE INDEX pgmedcit_idx ON hgd."MedlineCitation" USING GIN (to_tsvector('simple', "ABSTRACT"));
+
+SELECT "ABSTRACT"
+FROM hgd."MedlineCitation"
+WHERE textsearchable_index_col @@ to_tsquery('simple','SRY')
+
+--ALTER TABLE hgd."MedlineCitation" ADD COLUMN textsearchable_index_col tsvector;
+--UPDATE hgd."MedlineCitation" SET textsearchable_index_col =
+--     to_tsvector('simple', coalesce("ABSTRACT",''));
+
+--CREATE INDEX textsearch_idx ON hgd."MedlineCitation" USING GIN (textsearchable_index_col);
